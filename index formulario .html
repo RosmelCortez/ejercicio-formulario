@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Estudiantes - Academia Online</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 w-full max-w-3xl my-8">
+    <h1 class="text-2xl font-bold text-slate-800 mb-2 text-center">Registro de Nuevo Estudiante</h1>
+    <p class="text-slate-500 text-sm mb-6 text-center">Completa todos los campos obligatorios para procesar tu inscripción.</p>
+
+    <!-- Mensaje global de éxito / errores -->
+    <div id="mensaje-global" class="hidden mb-6 p-4 rounded-lg"></div>
+
+    <form id="form-registro" novalidate class="space-y-6">
+
+      <!-- Fila: Nombre y Apellido -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="nombre" class="block text-sm font-medium text-slate-700 mb-1">Nombre *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-nombre"></span>
+        </div>
+        <div>
+          <label for="apellido" class="block text-sm font-medium text-slate-700 mb-1">Apellido *</label>
+          <input type="text" id="apellido" name="apellido" placeholder="Apellido" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-apellido"></span>
+        </div>
+      </div>
+
+      <!-- Fila: Cédula y Fecha de Nacimiento -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="cedula" class="block text-sm font-medium text-slate-700 mb-1">Cédula *</label>
+          <input type="text" id="cedula" name="cedula" placeholder="Ej: V-12345678" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-cedula"></span>
+        </div>
+        <div>
+          <label for="fecha-nacimiento" class="block text-sm font-medium text-slate-700 mb-1">Fecha de Nacimiento *</label>
+          <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-fecha-nacimiento"></span>
+        </div>
+      </div>
+
+      <!-- Fila: Correo y Teléfono -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="correo" class="block text-sm font-medium text-slate-700 mb-1">Correo Electrónico *</label>
+          <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-correo"></span>
+        </div>
+        <div>
+          <label for="telefono" class="block text-sm font-medium text-slate-700 mb-1">Teléfono *</label>
+          <input type="text" id="telefono" name="telefono" placeholder="Ej: +584127850227" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-telefono"></span>
+        </div>
+      </div>
+
+      <!-- Dirección con contador -->
+      <div>
+        <div class="flex justify-between items-center mb-1">
+          <label for="direccion" class="block text-sm font-medium text-slate-700">Dirección *</label>
+          <span id="contador-direccion" class="text-xs text-slate-400">0 caracteres (mín. 10)</span>
+        </div>
+        <input type="text" id="direccion" name="direccion" placeholder="Calle, av, número de casa/apto" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+        <span class="text-xs text-red-500 hidden mt-1" id="error-direccion"></span>
+      </div>
+
+      <!-- Fila: Ciudad y País -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="ciudad" class="block text-sm font-medium text-slate-700 mb-1">Ciudad *</label>
+          <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-ciudad"></span>
+        </div>
+        <div>
+          <label for="pais" class="block text-sm font-medium text-slate-700 mb-1">País *</label>
+          <select id="pais" name="pais" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors bg-white">
+            <option value="">Seleccione un país</option>
+            <option value="VE">Venezuela</option>
+            <option value="CO">Colombia</option>
+            <option value="AR">Argentina</option>
+            <option value="CL">Chile</option>
+            <option value="MX">México</option>
+            <option value="ES">España</option>
+            <option value="PE">Perú</option>
+            <option value="EC">Ecuador</option>
+          </select>
+          <span class="text-xs text-red-500 hidden mt-1" id="error-pais"></span>
+        </div>
+      </div>
+
+      <!-- Contraseñas e Indicador de Fortaleza -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Contraseña *</label>
+          <input type="password" id="password" name="password" placeholder="Contraseña" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <div id="fortaleza-bar" class="h-1.5 w-full bg-slate-200 rounded-full mt-2 hidden">
+            <div id="fortaleza-progreso" class="h-full w-0 rounded-full transition-all duration-300"></div>
+          </div>
+          <span id="fortaleza-texto" class="text-xs text-slate-500 mt-1 block"></span>
+          <span class="text-xs text-red-500 hidden mt-1" id="error-password"></span>
+        </div>
+        <div>
+          <label for="confirm-password" class="block text-sm font-medium text-slate-700 mb-1">Confirmar Contraseña *</label>
+          <input type="password" id="confirm-password" name="confirm-password" placeholder="Repite tu contraseña" class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
+          <span class="text-xs text-red-500 hidden mt-1" id="error-confirm-password"></span>
+        </div>
+      </div>
+
+      <!-- Opciones Radiales: Género y Modalidad -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+        <div>
+          <span class="block text-sm font-medium text-slate-700 mb-2">Género *</span>
+          <div class="space-y-2">
+            <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="radio" name="genero" value="Masculino"> <span>Masculino</span></label>
+            <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="radio" name="genero" value="Femenino"> <span>Femenino</span></label>
+            <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="radio" name="genero" value="Prefiero no decir"> <span>Prefiero no decir</span></label>
+          </div>
+          <span class="text-xs text-red-500 hidden mt-1" id="error-genero"></span>
+        </div>
+
+        <div>
+          <span class="block text-sm font-medium text-slate-700 mb-2">Modalidad de estudio *</span>
+          <div class="space-y-2">
+            <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="radio" name="modalidad" value="Online"> <span>Online</span></label>
+            <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="radio" name="modalidad" value="Presencial"> <span>Presencial</span></label>
+            <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="radio" name="modalidad" value="Híbrida"> <span>Híbrida</span></label>
+          </div>
+          <span class="text-xs text-red-500 hidden mt-1" id="error-modalidad"></span>
+        </div>
+      </div>
+
+      <!-- Checkboxes: Áreas de Interés -->
+      <div>
+        <span class="block text-sm font-medium text-slate-700 mb-2">Áreas de interés * (Mín. 1, Máx. 3)</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="checkbox" name="intereses" value="Frontend"> <span>Frontend</span></label>
+          <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="checkbox" name="intereses" value="Backend"> <span>Backend</span></label>
+          <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="checkbox" name="intereses" value="Diseño UI-UX"> <span>Diseño UI-UX</span></label>
+          <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="checkbox" name="intereses" value="Inteligencia Artificial"> <span>Inteligencia Artificial</span></label>
+          <label class="flex items-center space-x-2 text-sm text-slate-600"><input type="checkbox" name="intereses" value="Bases de datos"> <span>Bases de datos</span></label>
+        </div>
+        <span class="text-xs text-red-500 hidden mt-1" id="error-intereses"></span>
+      </div>
+
+      <!-- Términos y Condiciones -->
+      <div>
+        <label class="flex items-center space-x-2 text-sm text-slate-700">
+          <input type="checkbox" id="terminos" name="terminos" class="rounded border-slate-300">
+          <span>Acepto los términos y condiciones *</span>
+        </label>
+        <span class="text-xs text-red-500 hidden mt-1" id="error-terminos"></span>
+      </div>
+
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-md shadow transition-colors">
+        Completar Registro
+      </button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
